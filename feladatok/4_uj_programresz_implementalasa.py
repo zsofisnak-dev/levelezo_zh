@@ -52,3 +52,49 @@ Minden függvény 1 pontot ér.
 ---
 
 """
+import csv
+
+def adatok_beolvasasa(fajlnev):
+    try:
+        with open(fajlnev, "r", encoding="utf-8") as fajl:
+            olvaso = csv.DictReader(fajl)
+            return list(olvaso)
+    except:
+        return []
+
+def szures_varos_szerint(adatok, varos_nev):
+    eredmeny = []
+    for sor in adatok:
+        if sor["varos"] == varos_nev:
+            eredmeny.append(sor)
+
+    return eredmeny
+
+def atlag_szennyezettseg(adatok):
+    if not adatok:
+        return 0
+    osszeg = 0
+    for sor in adatok:
+        osszeg += int(sor["szennyezettseg_szint"])
+
+    return osszeg / len(adatok)
+
+def vizszennyezetseg_statisztika(adatok):
+    statisztika = {"igen": 0, "nem": 0}
+
+    for sor in adatok:
+        ertek = sor["vizszennyezettseg"]
+        statisztika[ertek] += 1
+
+    return statisztika
+
+def szurt_csv_mentes(adatok, fajlnev, minimum_szint):
+    fejlec = ["varos", "ev", "szennyezettseg_szint", "vizszennyezettseg"]
+
+    with (open(fajlnev, "w", encoding="utf-8", newline="") as fajl):
+        iro = csv.DictWriter(fajl, fieldnames=fejlec)
+        iro.writeheader()
+
+        for sor in adatok:
+            if int(sor["szennyezettseg_szint"]) >= minimum_szint:
+                iro.writerow(sor)

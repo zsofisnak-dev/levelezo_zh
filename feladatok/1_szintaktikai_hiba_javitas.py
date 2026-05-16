@@ -18,9 +18,9 @@ Elvart kimenet a javitas utan:
 
 szamok = [3, 7, 9, 12, 5, 9]
 
-def osszeg_szamitas(lista)
+def osszeg_szamitas(lista):
     osszeg = 0
-    for szam in lista
+    for szam in lista:
         osszeg = osszeg + szam
     return osszeg
 
@@ -28,15 +28,15 @@ def szorzat_szamitas(lista):
     szorzat = 1
     for szam in lista:
         szorzat *= szam
-     return szorzat
+    return szorzat
 
 def atlaga_szamitas(lista):
     if not lista:
         return 0
-    return osszeg_szamitas(lista) / len(lista
+    return osszeg_szamitas(lista) / len(lista)
 
-def max_szam(lista)
-    if not lista
+def max_szam(lista):
+    if not lista:
         return None
     legnagyobb = lista[0]
     for szam in lista[1:]:
